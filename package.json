@@ -1,0 +1,26 @@
+{
+  "name": "laptop_finder_rana",
+  "version": "1.0.0",
+  "description": "SW302 Assignment 2 - Student Laptop Finder Web App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rana7azem/laptop_finder_rana.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rana7azem/laptop_finder_rana/issues"
+  },
+  "homepage": "https://github.com/rana7azem/laptop_finder_rana#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.5",
+    "@tailwindcss/forms": "^0.5.11",
+    "tailwindcss": "^4.3.5"
+  }
+}
