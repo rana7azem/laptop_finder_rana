@@ -1,11 +1,12 @@
 
 import { fetchLaptops } from "./api.js";
+
 import {
     isFavorite,
     toggleFavorite,
-    getFavorites
+    getCompareIds,
+    addToCompare
 } from "./storage.js";
-import { addToCompare } from "./storage.js";
 
 const container = document.getElementById("details-content");
 
@@ -93,6 +94,7 @@ function renderDetails(laptop) {
 
                     <div class="flex flex-wrap gap-3">
 
+                        <!-- Favorite Button -->
                         <button
                             id="favorite-button"
                             type="button"
@@ -101,6 +103,7 @@ function renderDetails(laptop) {
                             ${saved ? "♥ Remove Favorite" : "♡ Add to Favorites"}
                         </button>
 
+                        <!-- Comparison Button -->
                         <button
                             id="compare-button"
                             type="button"
@@ -119,8 +122,9 @@ function renderDetails(laptop) {
 
             </div>
 
-            <!-- Specifications -->
+            <!-- Full Specifications -->
             <section class="mt-10">
+
                 <h2 class="mb-5 text-2xl font-bold">
                     Full Specifications
                 </h2>
@@ -134,6 +138,7 @@ function renderDetails(laptop) {
                         </tbody>
                     </table>
                 </div>
+
             </section>
 
         </article>
@@ -163,28 +168,43 @@ function renderDetails(laptop) {
     // Handle comparison button
     document.getElementById("compare-button")
         .addEventListener("click", () => {
-            if (!getFavorites().includes(Number(laptop.id))) {
+            const message = document.getElementById("details-message");
+            const selected = getCompareIds();
+
+            // Already selected
+            if (selected.includes(Number(laptop.id))) {
+                message.textContent =
+                    "This laptop is already selected for comparison.";
+                return;
+            }
+
+            // Maximum 4 laptops
+            if (selected.length >= 4) {
+                message.textContent =
+                    "You can compare a maximum of 4 laptops.";
+                return;
+            }
+
+            // Save as favorite before adding to comparison
+            if (!isFavorite(laptop.id)) {
                 toggleFavorite(laptop.id);
             }
 
-            const favoriteButton =
-                document.getElementById("favorite-button");
-
-            favoriteButton.textContent = "♥ Remove Favorite";
-            favoriteButton.setAttribute("aria-pressed", "true");
-
             const result = addToCompare(laptop.id);
-            const message = document.getElementById("details-message");
 
             if (result === "added") {
                 message.textContent =
                     "Laptop added to comparison. Open Compare to view it.";
-            } else if (result === "already") {
-                message.textContent =
-                    "This laptop is already selected for comparison.";
+
+                const favoriteButton =
+                    document.getElementById("favorite-button");
+
+                favoriteButton.textContent = "♥ Remove Favorite";
+                favoriteButton.setAttribute("aria-pressed", "true");
+
             } else {
                 message.textContent =
-                    "You can compare a maximum of 4 laptops.";
+                    "Could not add this laptop to comparison.";
             }
         });
 }
