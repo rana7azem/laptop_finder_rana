@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-label="Illustration of a laptop">
+<rect width="600" height="400" fill="#e2e8f0"/>
+<rect x="115" y="76" width="370" height="235" rx="16" fill="#1f2937"/>
+<rect x="130" y="91" width="340" height="205" rx="7" fill="#64748b"/>
+<circle cx="300" cy="193" r="42" fill="#cbd5e1" opacity=".6"/>
+<path d="M75 319h450l-40 22H115z" fill="#475569"/>
+<path d="M250 319h100l-8 12h-84z" fill="#94a3b8"/>
+</svg>
