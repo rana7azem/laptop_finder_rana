@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Laptop Finder | Laptops</title>
+
+    <link rel="stylesheet" href="./dist/output.css">
+</head>
+
+<body class="min-h-screen bg-[var(--app-bg)] text-[var(--app-text)] transition-colors duration-300">
+
+    <!-- Header -->
+    <header class="bg-[var(--app-card)] shadow-sm">
+        <nav class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 p-5">
+
+            <a href="./index.html"
+               class="text-xl font-bold text-[var(--app-accent)]">
+                Student Laptop Finder
+            </a>
+
+            <div id="nav-links"
+                 class="order-3 hidden w-full flex-col gap-4 border-t border-[var(--app-border)] pt-4 md:order-none md:flex md:w-auto md:flex-row md:items-center md:border-0 md:pt-0">
+
+                <a href="./index.html"
+                   class="transition hover:text-[var(--app-accent)]">
+                    Home
+                </a>
+
+                <a href="./laptops.html"
+                   aria-current="page"
+                   class="font-semibold text-[var(--app-accent)]">
+                    Laptops
+                </a>
+
+                <a href="./favorites.html"
+                   class="transition hover:text-[var(--app-accent)]">
+                    Favorites
+                </a>
+
+                <a href="./compare.html"
+                   class="transition hover:text-[var(--app-accent)]">
+                    Compare
+                </a>
+            </div>
+
+            <div class="flex items-center gap-3">
+
+                <button id="theme-toggle"
+                        type="button"
+                        class="btn-action px-3 py-2 text-sm">
+                    Switch Theme
+                </button>
+
+                <button id="menu-toggle"
+                        type="button"
+                        aria-label="Toggle navigation menu"
+                        aria-controls="nav-links"
+                        aria-expanded="false"
+                        class="rounded-lg border border-[var(--app-border)] px-3 py-2 text-xl transition focus-visible:outline-2 focus-visible:outline-[var(--app-accent)] md:hidden">
+                    ☰
+                </button>
+
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main -->
+    <main class="mx-auto max-w-7xl px-5 py-12">
+
+        <section>
+            <h1 class="mb-3 text-3xl font-bold sm:text-4xl">
+                Browse Laptops
+            </h1>
+
+            <p class="mb-8 text-[var(--app-muted)]">
+                Search, filter, and compare laptops to find the right one.
+            </p>
+        </section>
+
+        <!-- Filters -->
+        <section aria-label="Laptop filters"
+                 class="laptop-card mb-8">
+
+            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+                <!-- Live Search -->
+                <div>
+                    <label for="search-input"
+                           class="mb-2 block font-medium">
+                        Search
+                    </label>
+
+                    <input id="search-input"
+                           type="search"
+                           placeholder="Search name or brand"
+                           class="w-full rounded-lg border-[var(--app-border)] bg-[var(--app-card)] text-[var(--app-text)] placeholder:text-[var(--app-muted)] focus:border-[var(--app-accent)] focus:ring-[var(--app-accent)]">
+                </div>
+
+                <!-- Category -->
+                <div>
+                    <label for="category-filter"
+                           class="mb-2 block font-medium">
+                        Category
+                    </label>
+
+                    <select id="category-filter"
+                            class="w-full rounded-lg border-[var(--app-border)] bg-[var(--app-card)] text-[var(--app-text)] focus:border-[var(--app-accent)] focus:ring-[var(--app-accent)]">
+
+                        <option value="all">All Categories</option>
+                        <option value="ultrabook">Ultrabook</option>
+                        <option value="gaming">Gaming</option>
+                        <option value="2-in-1">2-in-1</option>
+                        <option value="creator">Creator</option>
+                        <option value="budget">Budget</option>
+                    </select>
+                </div>
+
+                <!-- Maximum Price -->
+                <div>
+                    <label for="max-price"
+                           class="mb-2 block font-medium">
+                        Maximum Price ($)
+                    </label>
+
+                    <input id="max-price"
+                           type="number"
+                           min="0"
+                           placeholder="No maximum"
+                           class="w-full rounded-lg border-[var(--app-border)] bg-[var(--app-card)] text-[var(--app-text)] placeholder:text-[var(--app-muted)] focus:border-[var(--app-accent)] focus:ring-[var(--app-accent)]">
+                </div>
+
+                <!-- Minimum RAM -->
+                <div>
+                    <label for="min-ram"
+                           class="mb-2 block font-medium">
+                        Minimum RAM
+                    </label>
+
+                    <select id="min-ram"
+                            class="w-full rounded-lg border-[var(--app-border)] bg-[var(--app-card)] text-[var(--app-text)] focus:border-[var(--app-accent)] focus:ring-[var(--app-accent)]">
+
+                        <option value="0">Any RAM</option>
+                        <option value="8">8 GB or more</option>
+                        <option value="16">16 GB or more</option>
+                        <option value="32">32 GB or more</option>
+                    </select>
+                </div>
+
+                <!-- Sorting -->
+                <div>
+                    <label for="sort-select"
+                           class="mb-2 block font-medium">
+                        Sort By
+                    </label>
+
+                    <select id="sort-select"
+                            class="w-full rounded-lg border-[var(--app-border)] bg-[var(--app-card)] text-[var(--app-text)] focus:border-[var(--app-accent)] focus:ring-[var(--app-accent)]">
+
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+
+                        <option value="batteryHours-asc">Battery: Low to High</option>
+                        <option value="batteryHours-desc">Battery: High to Low</option>
+
+                        <option value="weightKg-asc">Weight: Light to Heavy</option>
+                        <option value="weightKg-desc">Weight: Heavy to Light</option>
+                    </select>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Result Count -->
+        <p id="result-count"
+           role="status"
+           class="mb-5 font-semibold text-[var(--app-muted)]">
+            Loading laptops...
+        </p>
+
+        <!-- Error or Empty Message -->
+        <p id="catalogue-feedback"
+           class="mb-5 text-[var(--app-muted)]">
+        </p>
+
+        <!-- Laptop Cards -->
+        <section id="laptop-grid"
+                 aria-label="Laptop results"
+                 class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-16 border-t border-[var(--app-border)] bg-[var(--app-card)] p-6 text-center text-sm text-[var(--app-muted)]">
+        Student Laptop Finder - SW302 Assignment 2
+    </footer>
+
+    <!-- Shared UI -->
+    <script type="module">
+        import {
+            initializeTheme,
+            initializeMobileMenu
+        } from "./src/js/ui.js";
+
+        initializeTheme();
+        initializeMobileMenu();
+    </script>
+
+    <!-- Catalogue Logic -->
+    <script type="module" src="./src/js/laptops-page.js"></script>
+
+</body>
+</html>
