@@ -610,11 +610,17 @@
     color: var(--app-muted);
   }
   @media (hover: hover) {
+    .hover\:bg-red-500:hover {
+      background-color: var(--color-red-500);
+    }
     .hover\:text-\[var\(--app-accent\)\]:hover {
       color: var(--app-accent);
     }
     .hover\:text-battery-accent:hover {
       color: var(--color-battery-accent);
+    }
+    .hover\:text-white:hover {
+      color: var(--color-white);
     }
     .hover\:underline:hover {
       text-decoration-line: underline;
@@ -639,9 +645,21 @@
   .focus-visible\:outline-\[var\(--app-accent\)\]:focus-visible {
     outline-color: var(--app-accent);
   }
+  .focus-visible\:outline-red-500:focus-visible {
+    outline-color: var(--color-red-500);
+  }
+  .disabled\:cursor-not-allowed:disabled {
+    cursor: not-allowed;
+  }
+  .disabled\:opacity-40:disabled {
+    opacity: 40%;
+  }
   @media (width >= 40rem) {
     .sm\:grid-cols-2 {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .sm\:grid-cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
     .sm\:px-4 {
       padding-inline: calc(var(--spacing) * 4);

@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Laptop Finder | Favorites</title>
+
+    <link rel="stylesheet" href="./dist/output.css">
+</head>
+
+<body class="min-h-screen bg-[var(--app-bg)] text-[var(--app-text)] transition-colors duration-300">
+
+    <!-- Header -->
+    <header class="bg-[var(--app-card)] shadow-sm">
+
+        <nav class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 p-5">
+
+            <a href="./index.html"
+               class="text-xl font-bold text-[var(--app-accent)]">
+                Student Laptop Finder
+            </a>
+
+            <!-- Navigation Links -->
+            <div id="nav-links"
+                 class="order-3 hidden w-full flex-col gap-4 border-t border-[var(--app-border)] pt-4 md:order-none md:flex md:w-auto md:flex-row md:items-center md:border-0 md:pt-0">
+
+                <a href="./index.html"
+                   class="transition hover:text-[var(--app-accent)]">
+                    Home
+                </a>
+
+                <a href="./laptops.html"
+                   class="transition hover:text-[var(--app-accent)]">
+                    Laptops
+                </a>
+
+                <a href="./favorites.html"
+                   aria-current="page"
+                   class="font-semibold text-[var(--app-accent)]">
+                    Favorites
+                </a>
+
+                <a href="./compare.html"
+                   class="transition hover:text-[var(--app-accent)]">
+                    Compare
+                </a>
+
+            </div>
+
+            <!-- Header Buttons -->
+            <div class="flex items-center gap-3">
+
+                <button id="theme-toggle"
+                        type="button"
+                        class="btn-action px-3 py-2 text-sm">
+                    Switch Theme
+                </button>
+
+                <button id="menu-toggle"
+                        type="button"
+                        aria-label="Toggle navigation menu"
+                        aria-controls="nav-links"
+                        aria-expanded="false"
+                        class="rounded-lg border border-[var(--app-border)] px-3 py-2 text-xl transition focus-visible:outline-2 focus-visible:outline-[var(--app-accent)] md:hidden">
+                    ☰
+                </button>
+
+            </div>
+
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="mx-auto max-w-7xl px-5 py-12">
+
+        <!-- Page Heading -->
+        <section class="mb-8">
+
+            <h1 class="mb-3 text-3xl font-bold sm:text-4xl">
+                My Favorites
+            </h1>
+
+            <p class="text-[var(--app-muted)]">
+                View and manage your saved laptops.
+            </p>
+
+        </section>
+
+        <!-- Summary Statistics -->
+        <section aria-label="Favorites summary"
+                 class="mb-8 grid grid-cols-1 gap-5 sm:grid-cols-3">
+
+            <!-- Saved Count -->
+            <div class="laptop-card text-center">
+
+                <h2 class="mb-2 text-sm text-[var(--app-muted)]">
+                    Saved Laptops
+                </h2>
+
+                <p id="favorites-count"
+                   class="text-3xl font-bold text-[var(--app-accent)]">
+                    0
+                </p>
+
+            </div>
+
+            <!-- Total Price -->
+            <div class="laptop-card text-center">
+
+                <h2 class="mb-2 text-sm text-[var(--app-muted)]">
+                    Total Price
+                </h2>
+
+                <p id="total-price"
+                   class="text-3xl font-bold text-[var(--app-accent)]">
+                    $0
+                </p>
+
+            </div>
+
+            <!-- Average Price -->
+            <div class="laptop-card text-center">
+
+                <h2 class="mb-2 text-sm text-[var(--app-muted)]">
+                    Average Price
+                </h2>
+
+                <p id="average-price"
+                   class="text-3xl font-bold text-[var(--app-accent)]">
+                    $0
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- Favorites Controls -->
+        <section class="mb-6 flex flex-wrap items-center justify-between gap-4">
+
+            <h2 class="text-2xl font-bold">
+                Saved Laptops
+            </h2>
+
+            <button id="clear-favorites"
+                    type="button"
+                    disabled
+                    class="cursor-pointer rounded-lg border border-red-500 px-5 py-3 font-semibold text-red-500 transition hover:bg-red-500 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 disabled:cursor-not-allowed disabled:opacity-40">
+                Clear All Favorites
+            </button>
+
+        </section>
+
+        <!-- Feedback and Empty State -->
+        <div id="favorites-feedback"
+             aria-live="polite"
+             class="mb-6">
+        </div>
+
+        <!-- Favorite Laptop Cards -->
+        <section id="favorites-grid"
+                 aria-label="Saved laptop cards"
+                 class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-16 border-t border-[var(--app-border)] bg-[var(--app-card)] p-6 text-center text-sm text-[var(--app-muted)]">
+
+        Student Laptop Finder - SW302 Assignment 2
+
+    </footer>
+
+    <!-- Shared UI -->
+    <script type="module">
+        import {
+            initializeTheme,
+            initializeMobileMenu
+        } from "./src/js/ui.js";
+
+        initializeTheme();
+        initializeMobileMenu();
+    </script>
+
+    <!-- Favorites Logic -->
+    <script type="module" src="./src/js/favorites-page.js"></script>
+
+</body>
+</html>
