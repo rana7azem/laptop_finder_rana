@@ -36,3 +36,33 @@ export function toggleFavorite(id) {
 
     return updatedFavorites;
 }
+
+const COMPARE_KEY = "laptopFinderCompare";
+
+// Read selected laptop IDs
+export const getCompareIds = () => {
+    return JSON.parse(localStorage.getItem(COMPARE_KEY)) || [];
+};
+
+// Add a laptop to comparison
+export function addToCompare(id) {
+    const laptopId = Number(id);
+    const selected = getCompareIds();
+
+    if (selected.includes(laptopId)) {
+        return "already";
+    }
+
+    if (selected.length >= 4) {
+        return "full";
+    }
+
+    selected.push(laptopId);
+
+    localStorage.setItem(
+        COMPARE_KEY,
+        JSON.stringify(selected)
+    );
+
+    return "added";
+}
