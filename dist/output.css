@@ -644,17 +644,11 @@
     .hover\:text-\[var\(--app-accent\)\]:hover {
       color: var(--app-accent);
     }
-    .hover\:text-battery-accent:hover {
-      color: var(--color-battery-accent);
-    }
     .hover\:text-white:hover {
       color: var(--color-white);
     }
     .hover\:underline:hover {
       text-decoration-line: underline;
-    }
-    .hover\:opacity-80:hover {
-      opacity: 80%;
     }
   }
   .focus\:border-\[var\(--app-accent\)\]:focus {

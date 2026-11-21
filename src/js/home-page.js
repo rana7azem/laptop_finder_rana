@@ -1,6 +1,7 @@
 
 import { fetchLaptops } from "./api.js";
-import { getFavorites } from "./storage.js";
+import { getFavorites, toggleFavorite } from "./storage.js";
+import { createLaptopCard } from "./cards.js";
 
 // Reusable statistics card
 const createStatCard = (label, value) => {
@@ -9,6 +10,7 @@ const createStatCard = (label, value) => {
             <h3 class="mb-2 text-sm text-[var(--app-muted)]">
                 ${label}
             </h3>
+
             <p class="text-3xl font-bold text-[var(--app-accent)]">
                 ${value}
             </p>
@@ -26,7 +28,7 @@ function showLoading(container) {
     `).join("");
 }
 
-// Calculate statistics from the JSON data
+// Calculate statistics from JSON data
 function calculateStatistics(laptops) {
     const lowestPrice = laptops.reduce(
         (lowest, laptop) => Math.min(lowest, laptop.price),
@@ -57,40 +59,114 @@ function calculateStatistics(laptops) {
     ];
 }
 
-// Load and display home statistics
-async function loadHomeStatistics() {
-    const container = document.getElementById("home-stats");
+// Render statistics cards
+function renderStatistics(laptops) {
+    const statsContainer = document.getElementById("home-stats");
 
-    if (!container) {
+    if (!statsContainer) {
         return;
     }
 
-    showLoading(container);
+    const statistics = calculateStatistics(laptops);
+
+    statsContainer.innerHTML = statistics
+        .map(stat => createStatCard(stat.label, stat.value))
+        .join("");
+}
+
+// Handle featured laptop favorite button
+function initializeFeaturedFavorite(laptops) {
+    const featuredContainer = document.getElementById("featured-laptop");
+
+    if (!featuredContainer) {
+        return;
+    }
+
+    featuredContainer.addEventListener("click", event => {
+        const button = event.target.closest("[data-favorite-id]");
+
+        if (!button) {
+            return;
+        }
+
+        const laptopId = Number(button.dataset.favoriteId);
+
+        toggleFavorite(laptopId);
+
+        const saved = getFavorites().includes(laptopId);
+
+        button.textContent = saved ? "♥ Saved" : "♡ Save";
+        button.setAttribute("aria-pressed", String(saved));
+
+        // Update saved favorites count immediately
+        renderStatistics(laptops);
+    });
+}
+
+// Load statistics and featured laptop
+async function loadHomeStatistics() {
+    const statsContainer = document.getElementById("home-stats");
+    const featuredContainer = document.getElementById("featured-laptop");
+
+    if (!statsContainer) {
+        return;
+    }
+
+    showLoading(statsContainer);
+
+    if (featuredContainer) {
+        featuredContainer.innerHTML = `
+            <div class="laptop-card animate-pulse">
+                <div class="mb-4 h-44 rounded-lg bg-gray-400/20"></div>
+                <div class="mb-3 h-6 rounded bg-gray-400/20"></div>
+                <div class="h-24 rounded bg-gray-400/20"></div>
+            </div>
+        `;
+    }
 
     try {
         const laptops = await fetchLaptops();
 
         if (laptops.length === 0) {
-            container.innerHTML = `
+            statsContainer.innerHTML = `
                 <p class="text-[var(--app-muted)]">
                     No laptops are available yet.
                 </p>
             `;
+
+            if (featuredContainer) {
+                featuredContainer.innerHTML = "";
+            }
+
             return;
         }
 
-        const statistics = calculateStatistics(laptops);
+        // Display home statistics
+        renderStatistics(laptops);
 
-        container.innerHTML = statistics
-            .map(stat => createStatCard(stat.label, stat.value))
-            .join("");
+        // Display featured laptop
+        if (featuredContainer) {
+            featuredContainer.innerHTML =
+                createLaptopCard(laptops[0]);
+
+            initializeFeaturedFavorite(laptops);
+        }
 
     } catch (error) {
-        container.innerHTML = `
-            <p role="alert" class="col-span-full rounded-lg border border-red-500 p-4 text-red-500">
+        statsContainer.innerHTML = `
+            <p role="alert"
+               class="col-span-full rounded-lg border border-red-500 p-4 text-red-500">
                 Could not load laptop statistics. Please try again.
             </p>
         `;
+
+        if (featuredContainer) {
+            featuredContainer.innerHTML = `
+                <p role="alert" class="text-red-500">
+                    Could not load featured laptop.
+                </p>
+            `;
+        }
     }
 }
 
