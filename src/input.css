@@ -1,3 +1,54 @@
 
 @import "tailwindcss";
 @plugin "@tailwindcss/forms";
+
+/* Custom theme colors */
+@theme {
+    --color-performance-bg: #111827;
+    --color-performance-card: #1f2937;
+    --color-performance-accent: #f97316;
+
+    --color-battery-bg: #f0fdf4;
+    --color-battery-card: #ffffff;
+    --color-battery-accent: #16a34a;
+}
+
+/* Default theme: Battery Saver */
+@layer base {
+    :root {
+        --app-bg: var(--color-battery-bg);
+        --app-card: var(--color-battery-card);
+        --app-accent: var(--color-battery-accent);
+        --app-text: #111827;
+        --app-muted: #475569;
+        --app-border: #d1d5db;
+        --app-button-text: #ffffff;
+    }
+
+    /* Performance theme colors */
+    :root[data-theme="performance"] {
+        --app-bg: var(--color-performance-bg);
+        --app-card: var(--color-performance-card);
+        --app-accent: var(--color-performance-accent);
+        --app-text: #f9fafb;
+        --app-muted: #d1d5db;
+        --app-border: #4b5563;
+        --app-button-text: #111827;
+    }
+}
+
+/* Reusable components */
+@layer components {
+    .laptop-card {
+        @apply rounded-xl p-5 shadow-md transition hover:shadow-lg;
+        background-color: var(--app-card);
+        color: var(--app-text);
+    }
+
+    .btn-action {
+        @apply inline-block cursor-pointer rounded-lg px-5 py-3 font-semibold transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2;
+        background-color: var(--app-accent);
+        color: var(--app-button-text);
+        outline-color: var(--app-accent);
+    }
+}
